@@ -30,6 +30,11 @@ private
     output << %{ name="seed"}
     output << %{ value="#{escape(RSpec.configuration.seed.to_s)}"}
     output << %{/>\n}
+    if ENV.key?("RSPEC_JUNIT_EXACT_SPEC")
+      output << %{<property name="exact_spec"}
+      output << %{ value="#{escape(ENV["RSPEC_JUNIT_EXACT_SPEC"].to_s)}"}
+      output << %{/>\n}
+    end
     output << %{</properties>\n}
     xml_dump_examples
     output << %{</testsuite>\n}
